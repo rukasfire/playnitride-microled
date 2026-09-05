@@ -327,7 +327,7 @@ body[data-p="C"] .nodes tbody tr[data-c="A"],body[data-p="C"] .nodes tbody tr[da
     <button class="fchip" type="button" data-p="A" title="只看 Path A 微顯示（快捷鍵 A）">A · AR</button>
     <button class="fchip" type="button" data-p="B" title="只看 Path B 大尺寸/車載（快捷鍵 B）">B · 大尺寸</button>
     <button class="fchip" type="button" data-p="C" title="只看 Path C 光互連（快捷鍵 C）">C · 光互連</button>
-    <button class="fchip on" type="button" data-p="all" title="顯示全部路徑（快捷鍵 0）">ALL</button>
+    <button class="fchip on" type="button" data-p="all" title="顯示全部三條路徑（快捷鍵 0）">ALL</button>
     <span class="nav-sep"></span>
     <button class="nchip act" type="button" id="btnMotion" title="開關動畫（快捷鍵 M）">◍ 動畫</button>
   </div>
@@ -772,6 +772,14 @@ body[data-p="C"] .nodes tbody tr[data-c="A"],body[data-p="C"] .nodes tbody tr[da
   <div class="svg-wrap" data-page-node-id="GMfyjRGLE7UZsypjPQ1wWo">
 <svg viewBox="0 0 1180 360" xmlns="http://www.w3.org/2000/svg" data-page-node-id="40X5dEuY9rwGzLGBlajgIo">
   <defs data-page-node-id="U0hbrn8uKG3CLUSy2IB5TA">
+    <filter id="ledGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="beamGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.5" result="b1"/>
+      <feMerge><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
     <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto" data-page-node-id="ki7J3G4ALtSWXoK2QNwLEt">
       <path d="M0,0 L10,5 L0,10 Z" fill="#a855f7" data-page-node-id="kpu7J80HQds7G8XBwGaooR"/>
     </marker>
@@ -783,39 +791,40 @@ body[data-p="C"] .nodes tbody tr[data-c="A"],body[data-p="C"] .nodes tbody tr[da
 
   <text x="20" y="30" font-family="JetBrains Mono,monospace" font-size="12" fill="#a855f7" data-page-node-id="V6eMP3qRsbVT6OiGjZ3FCO">圖 1 · CPO 光引擎內部結構（錼創 MicroLED 切入路徑）</text>
 
-  <rect x="60" y="70" width="180" height="220" rx="4" fill="url(#g_chip)" stroke="#a855f7" stroke-width="1.5" data-page-node-id="VwYPvcIs9oUABD1BKu8Ihk"/>
+  <rect x="56" y="66" width="188" height="228" rx="5" fill="none" stroke="#a855f7" stroke-width="0.8" opacity="0.4" class="pulse-glow" data-page-node-id="mled-glow"/>
+<rect x="60" y="70" width="180" height="220" rx="4" fill="url(#g_chip)" stroke="#a855f7" stroke-width="1.5" data-page-node-id="VwYPvcIs9oUABD1BKu8Ihk"/>
   <text x="150" y="92" font-family="JetBrains Mono,monospace" font-size="11" fill="#a855f7" text-anchor="middle" data-page-node-id="hHTIj6UcmQ32ir5wSE6r8R">MicroLED 陣列</text>
   <text x="150" y="106" font-family="JetBrains Mono,monospace" font-size="9" fill="#8b95a4" text-anchor="middle" data-page-node-id="8DZfcnNOhdFPGwoPysZawX">光源層</text>
 
-  <g transform="translate(80,120)" data-page-node-id="n2dYvIgzP82hxEcF3VxbpB">
+  <g transform="translate(80,120)" filter="url(#ledGlow)" data-page-node-id="n2dYvIgzP82hxEcF3VxbpB">
     <g data-page-node-id="wnHX9sK2tcQSgl1pI8NXMV">
-      <rect width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="peKnIQSWNyHI9h3ty41nDu"/>
-      <rect x="26" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="MxI18oPAJqED8pBx2tBcf9"/>
-      <rect x="52" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="bucn1PsbLhjmrRa46fSiI3"/>
-      <rect x="78" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="Ks73XWRAqrMCQBAIC99UlY"/>
-      <rect x="104" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="mK8IA3Zf1gHRcE4MxegBzK"/>
-      <rect x="130" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="2pnI4sf5imHTXDIsfDfRkA"/>
+      <rect class="led-pulse led-r0" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="peKnIQSWNyHI9h3ty41nDu"/>
+      <rect class="led-pulse led-r0" x="26" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="MxI18oPAJqED8pBx2tBcf9"/>
+      <rect class="led-pulse led-r0" x="52" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="bucn1PsbLhjmrRa46fSiI3"/>
+      <rect class="led-pulse led-r0" x="78" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="Ks73XWRAqrMCQBAIC99UlY"/>
+      <rect class="led-pulse led-r0" x="104" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="mK8IA3Zf1gHRcE4MxegBzK"/>
+      <rect class="led-pulse led-r0" x="130" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="2pnI4sf5imHTXDIsfDfRkA"/>
 
-      <rect y="26" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="d6EX9UzHSZQBPu8HyoFJcF"/>
-      <rect x="26" y="26" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="4CDvdtbiYiZzxr4gtfYpRG"/>
-      <rect x="52" y="26" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="oTEqApAJKvGecBDSmQKLBM"/>
-      <rect x="78" y="26" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="h2EjQmg9x3G24siHzJZczH"/>
-      <rect x="104" y="26" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="dtT0Q4yAqtZojSrWk9rV2p"/>
-      <rect x="130" y="26" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="eCOlpbLC7ExcWRdo0y7h3T"/>
+      <rect class="led-pulse led-r1" y="26" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="d6EX9UzHSZQBPu8HyoFJcF"/>
+      <rect class="led-pulse led-r1"x="26" y="26" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="4CDvdtbiYiZzxr4gtfYpRG"/>
+      <rect class="led-pulse led-r1"x="52" y="26" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="oTEqApAJKvGecBDSmQKLBM"/>
+      <rect class="led-pulse led-r1"x="78" y="26" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="h2EjQmg9x3G24siHzJZczH"/>
+      <rect class="led-pulse led-r1"x="104" y="26" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="dtT0Q4yAqtZojSrWk9rV2p"/>
+      <rect class="led-pulse led-r1"x="130" y="26" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="eCOlpbLC7ExcWRdo0y7h3T"/>
 
-      <rect y="52" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="HIlVIjoFrZINAh1WBUWGDB"/>
-      <rect x="26" y="52" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="oqsFsd0Gd7FkEG0smKjhXE"/>
-      <rect x="52" y="52" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="YxFRCDmCwyXoBF5uVwYLV1"/>
-      <rect x="78" y="52" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="K2iV7aaPq24AaewlwSjTvO"/>
-      <rect x="104" y="52" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="gqZk9XE8JcFfA2AyEFFYsC"/>
-      <rect x="130" y="52" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="Nn18CMbQRbIdnUE68kDBXI"/>
+      <rect class="led-pulse led-r2" y="52" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="HIlVIjoFrZINAh1WBUWGDB"/>
+      <rect class="led-pulse led-r2"x="26" y="52" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="oqsFsd0Gd7FkEG0smKjhXE"/>
+      <rect class="led-pulse led-r2"x="52" y="52" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="YxFRCDmCwyXoBF5uVwYLV1"/>
+      <rect class="led-pulse led-r2"x="78" y="52" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="K2iV7aaPq24AaewlwSjTvO"/>
+      <rect class="led-pulse led-r2"x="104" y="52" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="gqZk9XE8JcFfA2AyEFFYsC"/>
+      <rect class="led-pulse led-r2"x="130" y="52" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="Nn18CMbQRbIdnUE68kDBXI"/>
 
-      <rect y="78" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="lEx8ApLZ7FYBOpE886b7tl"/>
-      <rect x="26" y="78" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="xduxqYjnGBX7z4uOvZbykD"/>
-      <rect x="52" y="78" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="CmmDqNqswkgqt4kAl2C2wS"/>
-      <rect x="78" y="78" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="z1vs4vg4eOMDMyNfoIq0yT"/>
-      <rect x="104" y="78" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="4VUuhiZiQT7CdazEUyn8Zb"/>
-      <rect x="130" y="78" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="o4T8jEVzw0bBDPj2fs7OOQ"/>
+      <rect class="led-pulse led-r3" y="78" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="lEx8ApLZ7FYBOpE886b7tl"/>
+      <rect class="led-pulse led-r3"x="26" y="78" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="xduxqYjnGBX7z4uOvZbykD"/>
+      <rect class="led-pulse led-r3"x="52" y="78" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="CmmDqNqswkgqt4kAl2C2wS"/>
+      <rect class="led-pulse led-r3"x="78" y="78" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="z1vs4vg4eOMDMyNfoIq0yT"/>
+      <rect class="led-pulse led-r3"x="104" y="78" width="20" height="20" rx="2" fill="#a855f7" opacity="0.6" data-page-node-id="4VUuhiZiQT7CdazEUyn8Zb"/>
+      <rect class="led-pulse led-r3"x="130" y="78" width="20" height="20" rx="2" fill="#a855f7" opacity="0.8" data-page-node-id="o4T8jEVzw0bBDPj2fs7OOQ"/>
     </g>
   </g>
 
@@ -823,7 +832,7 @@ body[data-p="C"] .nodes tbody tr[data-c="A"],body[data-p="C"] .nodes tbody tr[da
   <text x="150" y="265" font-family="JetBrains Mono,monospace" font-size="9" fill="#8b95a4" text-anchor="middle" data-page-node-id="Jq4cYYpFgWJ1jBUsdZF6oa">InGaN (Sapphire/Si)</text>
   <text x="150" y="280" font-family="JetBrains Mono,monospace" font-size="9" fill="#5d6573" text-anchor="middle" data-page-node-id="FIesavR7MKWx0gZZYd7k3b">錼創提供（Si 開發中）</text>
 
-  <line class="flow" x1="240" y1="180" x2="380" y2="180" stroke="#a855f7" stroke-width="1.5" marker-end="arr2" data-page-node-id="MQCQeAdIQo1cAX8fwyF6ix"/>
+  <line class="flow beam-glow" x1="240" y1="180" x2="380" y2="180" stroke="#a855f7" stroke-width="1.5" marker-end="arr2" data-page-node-id="MQCQeAdIQo1cAX8fwyF6ix"/>
   <text x="310" y="172" font-family="JetBrains Mono,monospace" font-size="9" fill="#a855f7" text-anchor="middle" data-page-node-id="G097MaF1sLu0Bwc8AzK4kp">光耦合</text>
   <text x="310" y="194" font-family="JetBrains Mono,monospace" font-size="8" fill="#5d6573" text-anchor="middle" data-page-node-id="UBF99rrdyk1DJf8QO2UAHK">grating coupler</text>
 
@@ -1132,6 +1141,58 @@ body[data-p="C"] .nodes tbody tr[data-c="A"],body[data-p="C"] .nodes tbody tr[da
         feat:'NVIDIA / Broadcom / Cisco'}
   };
 
+  // ---- Modal: 點節點彈詳細資訊 ----
+  var modal = $('#modal'), modalCard = $('#modalCard'), modalBg = $('#modalBg'), modalClose = $('#modalClose');
+  var mMid = $('#mMid'), mTtl = $('#mTtl'), mPtag = $('#mPtag'),
+      mDetail = $('#mDetail'), mVs = $('#mVs'), mFeat = $('#mFeat');
+  var curNode = null;
+  var nodeOrder = ['A1','A2','A3','A4','B1','B2','B3','B4','C1','C2','C3','C4'];
+  function openModal(nodeId){
+    var n = NODES[nodeId]; if(!n) return;
+    curNode = nodeId;
+    modalCard.setAttribute('data-c', n.c);
+    mMid.textContent = n.id;
+    mTtl.textContent = n.title;
+    mPtag.textContent = n.path + ' · ' + n.layer;
+    mDetail.innerHTML = n.detail;
+    mVs.innerHTML = n.vs;
+    mFeat.innerHTML = n.feat;
+    modal.classList.add('on');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ modalClose && modalClose.focus && modalClose.focus(); }, 50);
+  }
+  function closeModal(){
+    modal.classList.remove('on');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    curNode = null;
+  }
+  if(modalBg) modalBg.addEventListener('click', closeModal);
+  if(modalClose) modalClose.addEventListener('click', closeModal);
+
+  // ESC to close + arrow keys to navigate nodes
+  document.addEventListener('keydown', function(e){
+    if(modal.classList.contains('on')){
+      if(e.key==='Escape'){ closeModal(); e.preventDefault(); return; }
+      if(e.key==='ArrowLeft' || e.key==='ArrowRight'){
+        var idx = nodeOrder.indexOf(curNode);
+        if(idx<0) return;
+        var ndir = e.key==='ArrowRight' ? 1 : -1;
+        var nx = nodeOrder[(idx + ndir + nodeOrder.length) % nodeOrder.length];
+        openModal(nx);
+        // 同時讓對應的 SVG rect 發光 0.6 秒
+        var r = document.querySelector('.dual-map rect[data-node="'+nx+'"]');
+        if(r){
+          r.classList.add('node-flash');
+          setTimeout(function(){ r.classList.remove('node-flash'); }, 600);
+        }
+        e.preventDefault();
+      }
+      return;  // 不要往下跑其他快捷鍵
+    }
+  });
+
   // ---- Init: progress bar + reveal on scroll ----
   var prog = $('#prog');
   function updateProg(){
@@ -1233,9 +1294,9 @@ body[data-p="C"] .nodes tbody tr[data-c="A"],body[data-p="C"] .nodes tbody tr[da
     r.addEventListener('mouseenter', function(){ showNode(r.getAttribute('data-node')); });
     r.addEventListener('mouseleave', clearNode);
     r.addEventListener('click', function(){
-      showNode(r.getAttribute('data-node'));
-      var tr = document.querySelector('.nodes tr[data-node="'+r.getAttribute('data-node')+'"]');
-      if(tr) tr.scrollIntoView({behavior:'smooth', block:'center'});
+      var nid = r.getAttribute('data-node');
+      showNode(nid);
+      openModal(nid);
     });
   });
   // Table row hover & click highlight
@@ -1324,6 +1385,35 @@ body[data-p="C"] .nodes tbody tr[data-c="A"],body[data-p="C"] .nodes tbody tr[da
   else { $$('.rv').forEach(function(el){ el.classList.add('in'); }); }
 })();
 </script>
+
+<!-- Modal: 點節點或表格列觸發 -->
+<div id="modal" class="modal" aria-hidden="true" role="dialog">
+  <div class="modal-bg" id="modalBg"></div>
+  <div class="modal-card" id="modalCard">
+    <button class="modal-close" id="modalClose" aria-label="關閉">×</button>
+    <div class="modal-h">
+      <span class="mid" id="mMid">—</span>
+      <span class="ttl" id="mTtl">—</span>
+      <span class="ptag" id="mPtag">—</span>
+    </div>
+    <div class="m-section">
+      <div class="lbl">技術細節</div>
+      <div class="val" id="mDetail">—</div>
+    </div>
+    <div class="m-section">
+      <div class="lbl">對手 / 對照</div>
+      <div class="val" id="mVs">—</div>
+    </div>
+    <div class="m-section">
+      <div class="lbl">關鍵證據</div>
+      <div class="m-evidence" id="mFeat">—</div>
+    </div>
+    <div class="m-foot">
+      <span>點外部或按 <span class="kbd">ESC</span> 關閉</span>
+      <span><span class="kbd">←</span> <span class="kbd">→</span> 切換節點</span>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
