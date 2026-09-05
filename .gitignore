@@ -1,0 +1,17 @@
+# WorkBuddy 內部記憶檔（不推送）
+.workbuddy/
+
+# 系統檔
+.DS_Store
+Thumbs.db
+
+# 編輯器暫存
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# 環境變數
+.env
+.env.local
