@@ -38,10 +38,10 @@ body{max-width:1240px;margin:0 auto;padding:48px 32px 96px;font-size:14px}
 
 /* ---------- SECTION ---------- */
 sec{margin-top:56px}
-sec-h{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--line)}
-sec-h .num{font-size:11px;color:var(--cyan);font-weight:700;letter-spacing:1.5px}
-sec-h h2{font-size:18px;font-weight:700;color:var(--fg);letter-spacing:.3px}
-sec-h .tag{font-size:11px;color:var(--fg-mute);letter-spacing:1px}
+.sec-h{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.sec-h h2{flex:1;font-size:18px;font-weight:700;color:var(--fg);letter-spacing:.3px}
+.sec-h .num{font-size:11px;color:var(--cyan);font-weight:700;letter-spacing:1.5px}
+.sec-h .tag{font-size:11px;color:var(--fg-mute);letter-spacing:1px;border:1px solid var(--line-2);padding:2px 8px;border-radius:2px}
 
 /* ---------- DUAL-AXIS MAP ---------- */
 .dual-map{border:1px solid var(--line);background:var(--bg-2);padding:0;overflow:hidden}
@@ -148,9 +148,198 @@ table.nodes tr:hover td{background:rgba(255,255,255,.02)}
 @media(max-width:780px){
   .paths,.cpo-metrics,.risks,.cmp-grid{grid-template-columns:1fr}
 }
+
+/* ================= INTERACTIVE LAYER (REV.3) ================= */
+#prog{position:fixed;top:0;left:0;height:2px;width:0;z-index:200;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--amber));box-shadow:0 0 10px rgba(168,85,247,.5);transition:width .1s linear}
+#nav{position:sticky;top:0;z-index:150;margin:0 -32px;padding:0 32px;background:rgba(10,14,20,.88);border-bottom:1px solid var(--line);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px)}
+.nav-in{display:flex;align-items:center;gap:6px;height:46px;overflow-x:auto;scrollbar-width:none}
+.nav-in::-webkit-scrollbar{display:none}
+.nav-sep{flex:none;width:1px;height:18px;background:var(--line);margin:0 8px}
+.nav-lbl{flex:none;font-size:9.5px;letter-spacing:1.4px;color:var(--fg-mute);margin-right:2px}
+.nchip,.fchip,.rchip{flex:none;background:transparent;border:1px solid var(--line);color:var(--fg-mute);font-family:inherit;font-size:11px;padding:5px 9px;cursor:pointer;border-radius:2px;transition:all .18s;white-space:nowrap;letter-spacing:.5px}
+.nchip:hover,.fchip:hover,.rchip:hover{color:var(--fg);border-color:var(--line-2);background:var(--bg-2)}
+.nchip.on{color:var(--cyan);border-color:var(--cyan);background:rgba(0,212,255,.08)}
+.fchip{font-weight:600}
+.fchip[data-p="A"].on{color:var(--cyan);border-color:var(--cyan);background:rgba(0,212,255,.1)}
+.fchip[data-p="B"].on{color:var(--amber);border-color:var(--amber);background:rgba(251,191,36,.1)}
+.fchip[data-p="C"].on{color:var(--purple);border-color:var(--purple);background:rgba(168,85,247,.12)}
+.kbd{font-size:10.5px;color:var(--fg-mute);margin:12px 0 22px;letter-spacing:.3px;line-height:1.9}
+.kbd b{display:inline-block;color:var(--fg-dim);border:1px solid var(--line-2);border-radius:2px;padding:0 5px;font-weight:600;margin:0 1px;background:var(--bg-2)}
+
+sec{scroll-margin-top:64px}
+.rv{opacity:0;transform:translateY(18px)}
+.rv.in{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.22,.7,.3,1),transform .6s cubic-bezier(.22,.7,.3,1);transition-delay:var(--d,0ms)}
+body[data-motion="off"] .rv{opacity:1!important;transform:none!important;transition:none!important}
+
+.path-card{transition:opacity .3s,filter .3s,transform .3s,box-shadow .3s,border-color .2s}
+body[data-filter="A"] .path-card:not([data-c="A"]),body[data-filter="B"] .path-card:not([data-c="B"]),body[data-filter="C"] .path-card:not([data-c="C"]){opacity:.18;filter:grayscale(.8)}
+body[data-filter="A"] .path-card[data-c="A"],body[data-filter="B"] .path-card[data-c="B"],body[data-filter="C"] .path-card[data-c="C"]{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,.55)}
+tr.rowhide{display:none}
+
+.nodeinfo{margin-top:14px;border:1px solid var(--line);background:var(--bg-2);padding:14px 16px;min-height:98px;transition:border-color .2s,background .2s}
+.nodeinfo.hot{border-color:var(--cyan);background:var(--bg-3)}
+.ni-hd{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.ni-n{flex:none;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#0a0e14;background:var(--cyan)}
+.ni-n.b{background:var(--amber)}
+.ni-n.c{background:var(--purple)}
+.ni-t{font-size:13px;font-weight:700;color:var(--fg)}
+.ni-ly{font-size:10px;color:var(--fg-mute);border:1px solid var(--line-2);padding:1px 6px}
+.ni-p{font-size:10px;font-weight:700;letter-spacing:1px}
+.ni-d{font-size:12px;color:var(--fg-dim);line-height:1.85}
+.ni-e{font-size:10.5px;color:var(--cyan);margin-top:8px;letter-spacing:.3px}
+.ni-empty{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--fg-mute);min-height:70px;line-height:1.8}
+.ni-empty::before{content:"\25C9";color:var(--cyan);font-size:13px;line-height:1.5}
+.dual-map svg rect[data-node]{cursor:pointer}
+.dual-map svg g[data-path]{transition:opacity .3s}
+
+.tlbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border:1px solid var(--line);background:var(--bg-2);padding:12px 16px;margin-top:14px}
+.tl-l{font-size:9.5px;letter-spacing:1.5px;color:var(--fg-mute)}
+#yr{-webkit-appearance:none;appearance:none;flex:1 1 200px;min-width:150px;height:4px;border-radius:2px;background:var(--line-2);outline:none;cursor:pointer}
+#yr::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--cyan);border:2px solid #0a0e14;box-shadow:0 0 0 1px var(--cyan),0 0 12px rgba(0,212,255,.55)}
+#yr::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--cyan);border:2px solid #0a0e14;box-shadow:0 0 0 1px var(--cyan)}
+#yrout{font-size:19px;font-weight:700;color:var(--cyan);min-width:58px;letter-spacing:-.5px}
+#yrnote{font-size:11px;color:var(--fg-dim);line-height:1.75;flex:1 1 260px}
+.tl-ticks{flex-basis:100%;display:flex;font-size:9px;color:var(--fg-mute);letter-spacing:.5px}
+.tl-ticks span{flex:1;text-align:center}
+.tl-ticks span:first-child{text-align:left}
+.tl-ticks span:last-child{text-align:right}
+
+.pbar{height:3px;background:var(--line);margin-top:7px;max-width:130px;overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:var(--cyan);transition:width 1s cubic-bezier(.2,.75,.3,1)}
+tr[data-pn="1"] .pbar i{background:var(--purple);box-shadow:0 0 8px rgba(168,85,247,.55)}
+table.nodes th.sortable{cursor:pointer;user-select:none;transition:color .15s}
+table.nodes th.sortable:hover{color:var(--fg)}
+table.nodes th.sortable::after{content:" \2195";opacity:.3;font-size:9px}
+table.nodes th.sortable.asc::after{content:" \25B2";opacity:1;color:var(--cyan);font-size:8px}
+table.nodes th.sortable.desc::after{content:" \25BC";opacity:1;color:var(--cyan);font-size:8px}
+table.nodes tbody tr{cursor:pointer;transition:background .15s}
+tbody tr.pinned td{background:rgba(168,85,247,.12)!important;box-shadow:inset 3px 0 0 var(--purple)}
+.shint{font-size:10px;color:var(--fg-mute);margin-top:9px;letter-spacing:.3px;line-height:1.7}
+
+.riskbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.rchip.on{color:var(--fg);border-color:var(--fg);background:var(--bg-3)}
+.rchip[data-r="high"].on{color:var(--red);border-color:var(--red);background:rgba(248,81,73,.08)}
+.rchip[data-r="med"].on{color:var(--amber);border-color:var(--amber);background:rgba(251,191,36,.08)}
+.rchip[data-r="low"].on{color:var(--green);border-color:var(--green);background:rgba(63,185,80,.08)}
+.risk.gone{display:none}
+.risk{transition:opacity .25s,transform .25s}
+
+.fab{position:fixed;right:22px;bottom:22px;z-index:160;display:flex;flex-direction:column;gap:8px}
+.fab button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line-2);background:rgba(15,20,27,.94);color:var(--fg-dim);font-family:inherit;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s;box-shadow:0 4px 14px rgba(0,0,0,.5);backdrop-filter:blur(8px)}
+.fab button:hover{color:var(--cyan);border-color:var(--cyan);transform:translateY(-2px)}
+.fab button.act{color:var(--purple);border-color:var(--purple)}
+#toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,16px);opacity:0;pointer-events:none;z-index:300;background:var(--bg-3);border:1px solid var(--cyan);color:var(--cyan);font-size:12px;padding:9px 18px;transition:all .25s;letter-spacing:.3px}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+
+@keyframes glowpulse{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes dashflow{to{stroke-dashoffset:-12}}
+@keyframes noderipple{0%{transform:scale(1);opacity:.55}100%{transform:scale(2.6);opacity:0}}
+@keyframes fadeup{0%{opacity:0;transform:translateY(18px)}100%{opacity:1;transform:translateY(0)}}
+.flow{stroke-dasharray:6 6;animation:dashflow .9s linear infinite}
+body[data-motion="off"] .flow{animation:none;stroke-dasharray:none!important}
+
+/* ---------- TOP NAV / PROGRESS / NODE INFO ---------- */
+#prog{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--amber));z-index:300;transition:width .08s linear;box-shadow:0 0 8px rgba(0,212,255,.6)}
+#nav{position:sticky;top:0;z-index:200;background:rgba(13,17,23,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin:0 -28px 24px;padding:10px 28px}
+.nav-in{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:11px;letter-spacing:.5px}
+.nav-lbl{color:var(--fg-mute);font-weight:700;font-size:10px;letter-spacing:1.5px}
+.nav-sep{width:1px;height:14px;background:var(--line-2);margin:0 2px}
+.fchip{border:1px solid var(--line-2);background:var(--bg-3);color:var(--fg-dim);padding:5px 10px;border-radius:3px;cursor:pointer;font-family:inherit;font-size:11px;letter-spacing:.5px;transition:all .15s}
+.fchip:hover{color:var(--fg);border-color:var(--fg)}
+.fchip[data-p="A"]:hover,.fchip[data-p="A"].on{color:var(--cyan);border-color:var(--cyan);background:rgba(0,212,255,.08)}
+.fchip[data-p="B"]:hover,.fchip[data-p="B"].on{color:var(--amber);border-color:var(--amber);background:rgba(251,191,36,.08)}
+.fchip[data-p="C"]:hover,.fchip[data-p="C"].on{color:var(--purple);border-color:var(--purple);background:rgba(168,85,247,.08)}
+.fchip.on{font-weight:700}
+.nchip{font-weight:700}
+.kbd{font-size:11px;color:var(--fg-mute);margin:-12px 0 24px;padding:10px 14px;border-left:2px solid var(--cyan);background:rgba(0,212,255,.04);line-height:1.7}
+.kbd b{color:var(--fg);font-weight:700;background:var(--bg-3);padding:1px 5px;border-radius:2px;border:1px solid var(--line-2);font-family:'JetBrains Mono',monospace;font-size:10px}
+
+/* ---------- DUAL MAP HOVER ---------- */
+.dual-map rect[stroke="#00d4ff"],.dual-map rect[stroke="#fbbf24"],.dual-map rect[stroke="#a855f7"]{cursor:pointer;transition:filter .18s,stroke-width .18s}
+.dual-map rect[stroke="#00d4ff"]:hover{filter:drop-shadow(0 0 8px rgba(0,212,255,.7));stroke-width:2.2}
+.dual-map rect[stroke="#fbbf24"]:hover{filter:drop-shadow(0 0 8px rgba(251,191,36,.7));stroke-width:2.2}
+.dual-map rect[stroke="#a855f7"]:hover{filter:drop-shadow(0 0 8px rgba(168,85,247,.7));stroke-width:2.2}
+.dual-map .ripple{fill:none;stroke-width:1.4;opacity:0;transform-origin:center;transform-box:fill-box}
+body[data-motion="on"] .dual-map .ripple{animation:noderipple 1.6s ease-out infinite}
+
+/* ---------- NODE INFO PANEL ---------- */
+.nodeinfo{border:1px solid var(--line);border-left:3px solid var(--cyan);background:var(--bg-2);padding:14px 18px;margin-top:14px;font-size:12px;color:var(--fg-dim);line-height:1.8;min-height:54px;transition:border-color .2s,padding .2s}
+.nodeinfo[data-c="A"]{border-left-color:var(--cyan)}
+.nodeinfo[data-c="B"]{border-left-color:var(--amber)}
+.nodeinfo[data-c="C"]{border-left-color:var(--purple)}
+.nodeinfo .ni-title{font-size:13px;font-weight:700;color:var(--fg);margin-bottom:6px;letter-spacing:.3px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.nodeinfo .ni-title .ni-id{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);border:1px solid var(--cyan);padding:1px 6px;border-radius:2px}
+.nodeinfo[data-c="B"] .ni-title .ni-id{color:var(--amber);border-color:var(--amber)}
+.nodeinfo[data-c="C"] .ni-title .ni-id{color:var(--purple);border-color:var(--purple)}
+.nodeinfo .ni-tag{display:inline-block;font-size:10px;letter-spacing:1px;color:var(--fg-mute);border:1px solid var(--line-2);padding:1px 6px;border-radius:2px;margin-left:auto}
+.nodeinfo .ni-empty{color:var(--fg-mute);font-style:italic}
+.nodeinfo .ni-feat{margin-top:8px;padding-top:8px;border-top:1px solid var(--line);font-size:11px;color:var(--fg-mute);letter-spacing:.3px}
+.nodeinfo .ni-feat b{color:var(--fg);font-weight:600}
+
+/* ---------- TABLE HOVER HIGHLIGHT ---------- */
+.nodes tbody tr{transition:background .15s,box-shadow .15s;cursor:default}
+.nodes tbody tr:hover{background:rgba(0,212,255,.06);box-shadow:inset 3px 0 0 var(--cyan)}
+.nodes tbody tr[data-c="B"]:hover{background:rgba(251,191,36,.06);box-shadow:inset 3px 0 0 var(--amber)}
+.nodes tbody tr[data-c="C"]:hover{background:rgba(168,85,247,.06);box-shadow:inset 3px 0 0 var(--purple)}
+.nodes tbody tr.hi{background:rgba(0,212,255,.1);box-shadow:inset 3px 0 0 var(--cyan)}
+.nodes tbody tr.hi[data-c="B"]{background:rgba(251,191,36,.1);box-shadow:inset 3px 0 0 var(--amber)}
+.nodes tbody tr.hi[data-c="C"]{background:rgba(168,85,247,.1);box-shadow:inset 3px 0 0 var(--purple)}
+
+/* ---------- REVEAL ON SCROLL ---------- */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.rv.in{opacity:1;transform:translateY(0)}
+
+/* ---------- FILTER FADE ---------- */
+.path-card,.dual-map,section[id]{transition:opacity .25s,filter .25s}
+body[data-p="A"] section .path-card[data-c="B"],body[data-p="A"] section .path-card[data-c="C"],
+body[data-p="B"] section .path-card[data-c="A"],body[data-p="B"] section .path-card[data-c="C"],
+body[data-p="C"] section .path-card[data-c="A"],body[data-p="C"] section .path-card[data-c="C"]{opacity:.22;filter:grayscale(.6)}
+body[data-p="A"] .dual-map svg [data-c="B"],body[data-p="A"] .dual-map svg [data-c="C"],
+body[data-p="B"] .dual-map svg [data-c="A"],body[data-p="B"] .dual-map svg [data-c="C"],
+body[data-p="C"] .dual-map svg [data-c="A"],body[data-p="C"] .dual-map svg [data-c="C"]{opacity:.18}
+body[data-p="A"] .nodes tbody tr[data-c="B"],body[data-p="A"] .nodes tbody tr[data-c="C"],
+body[data-p="B"] .nodes tbody tr[data-c="A"],body[data-p="B"] .nodes tbody tr[data-c="C"],
+body[data-p="C"] .nodes tbody tr[data-c="A"],body[data-p="C"] .nodes tbody tr[data-c="C"]{opacity:.32}
+
+@media(max-width:780px){
+  body{padding:24px 16px 80px}
+  #nav{margin:0 -16px;padding:0 16px}
+  .fab{right:12px;bottom:12px}
+  .nav-in{gap:4px}
+  .fchip{padding:4px 7px;font-size:10px}
+  .kbd{font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1!important;transform:none!important}
+  .flow{animation:none}
+  .dual-map .ripple{animation:none}
+}
 </style>
 </head>
 <body data-page-node-id="cr5bcvp7IRUai7IQHIzso8">
+
+<div id="prog"></div>
+<nav id="nav">
+  <div class="nav-in">
+    <span class="nav-lbl">JUMP</span>
+    <span class="nav-sep" id="navAnchor"></span>
+    <span class="nav-lbl">PATH</span>
+    <button class="fchip" type="button" data-p="A" title="只看 Path A 微顯示（快捷鍵 A）">A · AR</button>
+    <button class="fchip" type="button" data-p="B" title="只看 Path B 大尺寸/車載（快捷鍵 B）">B · 大尺寸</button>
+    <button class="fchip" type="button" data-p="C" title="只看 Path C 光互連（快捷鍵 C）">C · 光互連</button>
+    <button class="fchip on" type="button" data-p="all" title="顯示全部路徑（快捷鍵 0）">ALL</button>
+    <span class="nav-sep"></span>
+    <button class="nchip act" type="button" id="btnMotion" title="開關動畫（快捷鍵 M）">◍ 動畫</button>
+  </div>
+</nav>
+<div class="kbd">互動提示：滑過雙軸地圖的節點方塊或 §04 表格的列 → 下方顯示該製程細節 · 拖動 §06 年份滑桿 → 時間軸跟著跑 · 專利表格可排序 / 釘選<br data-page-node-id="kbd-br">快捷鍵：<b>1</b>–<b>7</b> 跳章節 · <b>A</b>/<b>B</b>/<b>C</b> 篩選路徑 · <b>0</b> 清除篩選 · <b>T</b> 回到頂部 · <b>M</b> 動畫開關</div>
+
+<div class="fab">
+  <button type="button" id="btnTop" title="回到頂部（T）">↑</button>
+  <button type="button" id="btnMotion2" title="開關動畫（M）">◍</button>
+  <button type="button" id="btnCopy" title="複製引用資訊">⧉</button>
+</div>
+<div id="toast"></div>
 
 <!-- ============ HEADER ============ -->
 <div class="hdr" data-page-node-id="t8fONVZlbYpBRx2Ocky3GE">
@@ -313,7 +502,7 @@ table.nodes tr:hover td{background:rgba(255,255,255,.02)}
     <text x="280" y="232" font-family="JetBrains Mono,monospace" font-size="9" fill="#8b95a4" text-anchor="middle" data-page-node-id="UHL6braIkyz5NFZCpMXUVw">Laser LIFT 自研設備</text>
     <text x="280" y="244" font-family="JetBrains Mono,monospace" font-size="8" fill="#5d6573" text-anchor="middle" data-page-node-id="Sd3Rtr8LC5OV1J9UCYTvvF">75 μm &gt;99.95% 良率</text>
 
-    <rect x="220" y="320" width="120" height="50" rx="3" fill="#0f141b" stroke="#00d4ff" stroke-width="1.2" data-page-node-id="Tbs21JenjWDjamqfFFBmFl"/>
+    <rect data-c="A" data-node="A3" x="220" y="320" width="120" height="50" rx="3" fill="#0f141b" stroke="#00d4ff" stroke-width="1.2" data-page-node-id="Tbs21JenjWDjamqfFFBmFl"/>
     <text x="280" y="338" font-family="JetBrains Mono,monospace" font-size="10" fill="#e6edf3" text-anchor="middle" data-page-node-id="jeeKW3HxsQIkAlSK5FLHN7">CMOS 鍵合</text>
     <text x="280" y="352" font-family="JetBrains Mono,monospace" font-size="9" fill="#8b95a4" text-anchor="middle" data-page-node-id="7VQncsef4OneenEk62xuF3">Hybrid Bonding</text>
     <text x="280" y="364" font-family="JetBrains Mono,monospace" font-size="8" fill="#5d6573" text-anchor="middle" data-page-node-id="G69EHXqZRBiYFQZVHclo2q">0.18" 5644 PPI</text>
@@ -417,6 +606,10 @@ table.nodes tr:hover td{background:rgba(255,255,255,.02)}
     <span class="b" data-page-node-id="DC2Y26YQL84FviXyAerSqf">Path B · 大尺寸/車載 (Sapphire)</span>
     <span class="c" data-page-node-id="nhe61iah5HVDoehMqaxFmI">Path C · CPO 光引擎 (Si 開發中)</span>
   </div>
+
+  <div class="nodeinfo" id="nodeinfo">
+    <div class="ni-empty">滑過或點擊上方任一個<b>節點方塊</b>（也可以滑 §04 對照表的任一列），這裡會顯示該製程節點的技術細節與競爭對照。</div>
+  </div>
 </sec>
 
 <!-- ============ §3 三條路徑卡片 ============ -->
@@ -496,7 +689,7 @@ table.nodes tr:hover td{background:rgba(255,255,255,.02)}
       <tr data-page-node-id="13TOGx4Mp0dY6gQjhhVDES"><td class="id c" data-page-node-id="7TkTYxSQNjZVfH4mNV7M93">⑨</td><td class="layer" data-page-node-id="MTBBkknbgPrEtKH693wocU">L1 封裝級</td><td class="tech" data-page-node-id="6GOGCEOT9AnoQq8xl5EFru"><b data-page-node-id="RE9Tlfk5WG8xaxCrmhFpGL">GaN-on-Si</b>8"/12" 開發中</td><td data-page-node-id="mkfMKwqQkvDeniHXefDy4P">C · CPO</td><td data-page-node-id="Mh9rvGcmKBj9wqvsHuDjsD">下一代投資；InGaN 長波長 (850/940 nm) 可調。2025 法說會揭露，尚未量產。</td><td class="feat" data-page-node-id="W606YbIiKjBIluA72ragyO">2025 法說會</td></tr>
       <tr data-page-node-id="h7iT42yJCVCt7kqG0OngUn"><td class="id c" data-page-node-id="OqKc0xVDcYWxdEHb8R8DZ1">⑩</td><td class="layer" data-page-node-id="SxswRanuTmAUXHoLBjLACa">L2 模組級</td><td class="tech" data-page-node-id="IegDXdhl5imwEoNuLCXQQm"><b data-page-node-id="1wAoVzj2Ayq0x6UjatgdRK">MicroLED 陣列</b>GHz 調變</td><td data-page-node-id="7nMWBvAS1Cotk5IZlEDDUz">C · CPO</td><td data-page-node-id="du3oVEGlKGP7IatKOyUcql">取代 VCSEL/DFB；陣列化、波分多工。需重新設計光學耦合。</td><td class="feat" data-page-node-id="ItPJlgMf7botUYMRHVAzwT">vs Lumentum / Coherent</td></tr>
       <tr data-page-node-id="sC6TCSL6UDUjNYmNkmqR5U"><td class="id c" data-page-node-id="bgi1eyluG1NhM6xveoyzRU">⑪</td><td class="layer" data-page-node-id="HdnDo4zoxsTXrFuApGbdh9">L3 系統級</td><td class="tech" data-page-node-id="zyhGru6nEm0aSqDHtB9iW7"><b data-page-node-id="ymdMFHxAqI3S2DkAS183ku">SiPh 晶片</b>Hybrid Bonding</td><td data-page-node-id="EI6S9L9L3yb89MmWarpYTn">C · CPO</td><td data-page-node-id="hFeyxZJ0XRchJhmBNNq3KS">與 TSMC COUPE / Intel 矽光子整合；光源耦合技術是瓶頸。</td><td class="feat" data-page-node-id="TfC9VR0cJfUMMEIV7jn0Ab">TSMC / Intel / Broadcom</td></tr>
-      <tr data-page-node-id="cG3l1X3ERI6oaYbXvgRQ3g"><td class="id c" data-page-node-id="CsnqWdOrVntNYWr92zD9VY">⑫</td><td class="layer" data-page-node-id="b8tiFEPwHRyw1kJWVPqvNC">L4 終端</td><td class="tech" data-page-node-id="hInjRlpHNwbZgcxpV6qKOE"><b data-page-node-id="gehtvCX64ykP9yyZdfnU0Z">Co-Packaged</b>Switch ASIC</td><td data-page-node-id="Qz40QjZqs11ccVhMyARocj">C · CPO</td><td data-page-node-id="GOp2qpvqHVSa2bwhLoIuXb">光引擎直封 switch，3.2T/port，功耗降 30%。</td><td class="feat" data-page-node-id="XzxBleZSXwVj0kGBVOVaFI">NVIDIA / Broadcom / Cisco</td></tr>
+      <tr data-c="C" data-node="C4" data-page-node-id="cG3l1X3ERI6oaYbXvgRQ3g"><td class="id c" data-page-node-id="CsnqWdOrVntNYWr92zD9VY">⑫</td><td class="layer" data-page-node-id="b8tiFEPwHRyw1kJWVPqvNC">L4 終端</td><td class="tech" data-page-node-id="hInjRlpHNwbZgcxpV6qKOE"><b data-page-node-id="gehtvCX64ykP9yyZdfnU0Z">Co-Packaged</b>Switch ASIC</td><td data-page-node-id="Qz40QjZqs11ccVhMyARocj">C · CPO</td><td data-page-node-id="GOp2qpvqHVSa2bwhLoIuXb">光引擎直封 switch，3.2T/port，功耗降 30%。</td><td class="feat" data-page-node-id="XzxBleZSXwVj0kGBVOVaFI">NVIDIA / Broadcom / Cisco</td></tr>
     </tbody>
   </table>
 </sec>
@@ -630,7 +823,7 @@ table.nodes tr:hover td{background:rgba(255,255,255,.02)}
   <text x="150" y="265" font-family="JetBrains Mono,monospace" font-size="9" fill="#8b95a4" text-anchor="middle" data-page-node-id="Jq4cYYpFgWJ1jBUsdZF6oa">InGaN (Sapphire/Si)</text>
   <text x="150" y="280" font-family="JetBrains Mono,monospace" font-size="9" fill="#5d6573" text-anchor="middle" data-page-node-id="FIesavR7MKWx0gZZYd7k3b">錼創提供（Si 開發中）</text>
 
-  <line x1="240" y1="180" x2="380" y2="180" stroke="#a855f7" stroke-width="1.5" marker-end="arr2" data-page-node-id="MQCQeAdIQo1cAX8fwyF6ix"/>
+  <line class="flow" x1="240" y1="180" x2="380" y2="180" stroke="#a855f7" stroke-width="1.5" marker-end="arr2" data-page-node-id="MQCQeAdIQo1cAX8fwyF6ix"/>
   <text x="310" y="172" font-family="JetBrains Mono,monospace" font-size="9" fill="#a855f7" text-anchor="middle" data-page-node-id="G097MaF1sLu0Bwc8AzK4kp">光耦合</text>
   <text x="310" y="194" font-family="JetBrains Mono,monospace" font-size="8" fill="#5d6573" text-anchor="middle" data-page-node-id="UBF99rrdyk1DJf8QO2UAHK">grating coupler</text>
 
@@ -812,7 +1005,7 @@ table.nodes tr:hover td{background:rgba(255,255,255,.02)}
 </sec>
 
 <!-- ============ §7 風險與觀察 ============ -->
-<sec data-page-node-id="C3f4cOWBsqGDQIKkARGLzs">
+<sec id="sec7" data-page-node-id="C3f4cOWBsqGDQIKkARGLzs">
   <div class="sec-h" data-page-node-id="j8dVTTC8M8C5zOBrRONLkp">
     <span class="num" data-page-node-id="H9DI0JGcvc2LRKpvIKVN0k">§07</span>
     <h2 data-page-node-id="Y2x0weOvsZwS9DnB3MMl1g">風險 × 觀察清單</h2>
@@ -878,6 +1071,259 @@ table.nodes tr:hover td{background:rgba(255,255,255,.02)}
   <div data-page-node-id="jOGFeTqzWOMF8jD9DOQywv">資料來源：PatSnap Eureka《MicroLED Displays Patent Landscape 2026》(2026/07/09) · PRNewswire「PlayNitride × Brillink 戰略合作」(2026/01/12) · 錼創 2024 年報 · 2025/05/29 法說會簡報 · SEMICON Taiwan 2025 展出 · USPTO 9,670,592 / 2018/0277718 專利原文 · TrendForce 2026/05 · TSMC COUPE 技術白皮書</div>
   <div data-page-node-id="E2ObGrKd8jfvorToQ5m1IF">© INTERACTIVE TECHNOTE · v2026.09 (REV.2) · 不構成投資建議</div>
 </div>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(s,el){return (el||document).querySelector(s);};
+  var $$ = function(s,el){return Array.prototype.slice.call((el||document).querySelectorAll(s));};
+
+  // ---- Node content lookup (12 nodes) ----
+  var NODES = {
+    A1:{id:'①',c:'A',layer:'L1 封裝級',title:'GaN-on-Sapphire 磊晶 MOCVD',path:'A · AR',
+        detail:'藍綠光 InGaN，藍寶石基板；錼創主力，USPTO 9,670,592 專利原文確認 InGaN 磊晶結構。',
+        vs:'對手：JBD、上海顯耀同採 Sapphire，但 0.13"/0.18" 尺寸段；錼創佔 4"/6" 量產經濟。',
+        feat:'US 9,670,592（磊晶）/ 法說會 2025/05'},
+    A2:{id:'②',c:'A',layer:'L2 模組級',title:'巨量轉移 — Laser LIFT（自研設備）',path:'A · AR',
+        detail:'雷射誘導前向轉移（LIFT），非接觸、不受晶片微縮限制。2025/09 SEMICON Taiwan 展出自研設備（約 10 噸），75 μm 晶片轉移良率 >99.95%。<b>全雷射，無 stamp、無流體自組裝路線。</b>',
+        vs:'對手：X-Celeprint µTP（凡德比）、eLux（流體自組裝、夏普）—— 走的是不同物理路線；錼創押 LIFT 的物理上限最高且唯一自研設備。',
+        feat:'SEMICON Taiwan 2025 / 自研設備展示'},
+    A3:{id:'③',c:'A',layer:'L3 系統級',title:'CMOS 鍵合（Hybrid Bonding）',path:'A · AR',
+        detail:'0.18" 5644 PPI 全彩樣品；TSV 互連、單片化。C²W / Cu-Cu 直接鍵合，相較傳統 flip-chip 像素密度可推升 10×。',
+        vs:'對手：JBD 也用 CMOS 鍵合。錼創與 Lumiode 整合後，2026 主動式驅動矩陣（Active TFT）路線已就位。',
+        feat:'vs JBD / Lumiode 整合'},
+    A4:{id:'④',c:'A',layer:'L4 終端',title:'AR 眼鏡 / 光波導',path:'A · AR',
+        detail:'搭配 Birdbath / 陣列光波導，PPI >3000 才能做 AR；Apple Watch MicroLED 2024 取消後，2027+ 眼鏡時程成主要應用場景。',
+        vs:'對手：Sony（OLED on Si 早期）、JBD、Porotech。',
+        feat:'Apple / Meta / Sony 客戶群'},
+
+    B1:{id:'⑤',c:'B',layer:'L1 封裝級',title:'GaN-on-Sapphire 磊晶 4"/6"',path:'B · 大尺寸 / 車載',
+        detail:'與 Path A 共用產線；低成本、缺陷密度容忍度高。Sapphire 基板易於 6" 化，滿足 89"–140" TV 的產量需求。',
+        vs:'對手：三星 SDC、LG Display、友達皆採 Sapphire 主流；BOE 同時投資 Si 路線。',
+        feat:'年報 / 三星 SDC 89" 量產線'},
+    B2:{id:'⑥',c:'B',layer:'L2 模組級',title:'巨量轉移 — Laser LIFT（共用）',path:'B · 大尺寸 / 車載',
+        detail:'與 Path A 同一套雷射轉移平台：自 6 吋晶圓將 RGB MicroLED 轉移至各種尺寸背板；精度對標半導體設備。TV 量產關鍵。',
+        vs:'對手：Samsung 用雷射，但友達部分用 μTP 與 ALD 封裝組合。',
+        feat:'SEMICON Taiwan 2025'},
+    B3:{id:'⑦',c:'B',layer:'L3 系統級',title:'LTPS 背板（PM 驅動）',path:'B · 大尺寸 / 車載',
+        detail:'友達供應、被動矩陣（PM）驅動，簡化製程；TV 用 LTPS 已成熟，無需 LTPO。',
+        vs:'對手：JBD 採 CMOS；對大尺寸 TV 而言 PM-LTPS 性價比最高。',
+        feat:'友達 / JBD'},
+    B4:{id:'⑧',c:'B',layer:'L4 終端',title:'89"–140" TV / 車載 HUD',path:'B · 大尺寸 / 車載',
+        detail:'三星 MicroLED TV 量產中、友達車用透明顯示 2025 導入。',
+        vs:'對手：Samsung The Wall、LG、BOE。',
+        feat:'Samsung / LG / BOE / 友達'},
+
+    C1:{id:'⑨',c:'C',layer:'L1 封裝級',title:'GaN-on-Si 磊晶 8"/12" 開發中',path:'C · CPO 光引擎',
+        detail:'下一代投資（2025/05 法說會揭露）。InGaN 長波長（850/940 nm）可調，符合 3.2T 光引擎波長需求；Si 基板易於 12" 化、降成本。',
+        vs:'對手：直接競爭少——這是 MicroLED 路徑相對於 VCSEL/EML 的<b>技術差異化點</b>。',
+        feat:'2025/05 法說會 / 8" 12" 設備投資計畫'},
+    C2:{id:'⑩',c:'C',layer:'L2 模組級',title:'MicroLED 陣列 + GHz 調變',path:'C · CPO 光引擎',
+        detail:'取代 VCSEL / DFB；陣列化、波分多工。MicroLED 調變頻寬可達 GHz 量級，封裝結構與半導體製程完全相容。',
+        vs:'對手：Lumentum / Coherent（VCSEL/EML 主流），但兩者封裝不相容 CMOS/SiPh；MicroLED 是新進入者。',
+        feat:'vs Lumentum / Coherent'},
+    C3:{id:'⑪',c:'C',layer:'L3 系統級',title:'SiPh 晶片 Hybrid Bonding',path:'C · CPO 光引擎',
+        detail:'與 TSMC COUPE / Intel 矽光子整合；光源耦合（grating coupler 對準）是瓶頸——這是 Brillink AEC 替代方案試圖繞過的環節。',
+        vs:'對手：TSMC COUPE、Intel、Broadcom；台積電自家光源研發仍在選用 VCSEL/EML。',
+        feat:'TSMC / Intel / Broadcom'},
+    C4:{id:'⑫',c:'C',layer:'L4 終端',title:'Co-Packaged Switch ASIC',path:'C · CPO 光引擎',
+        detail:'光引擎直封 switch，3.2T/port，功耗降 30%。NVIDIA、Broadcom、Cisco 三大 switch 廠都在 2026–2027 推進量產。',
+        vs:'對手：可插拔 QSFP-DD（仍是主流，預估 2027 前仍是 80% 市佔）。',
+        feat:'NVIDIA / Broadcom / Cisco'}
+  };
+
+  // ---- Init: progress bar + reveal on scroll ----
+  var prog = $('#prog');
+  function updateProg(){
+    var h = document.documentElement;
+    var scrolled = h.scrollTop || document.body.scrollTop;
+    var height = (h.scrollHeight - h.clientHeight) || 1;
+    if(prog) prog.style.width = ((scrolled/height)*100).toFixed(2) + '%';
+  }
+  window.addEventListener('scroll', updateProg, {passive:true});
+  updateProg();
+
+  // ---- Path filter ----
+  var pathChips = $$('#nav .fchip');
+  pathChips.forEach(function(b){
+    b.addEventListener('click', function(){
+      pathChips.forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      document.body.setAttribute('data-p', b.getAttribute('data-p'));
+    });
+  });
+
+  // ---- Section keyboard nav ----
+  function jump(secId){
+    var el = document.getElementById(secId);
+    if(!el) return;
+    el.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  // ---- Floating actions ----
+  var btnTop = $('#btnTop');
+  if(btnTop) btnTop.addEventListener('click', function(){window.scrollTo({top:0,behavior:'smooth'});});
+  function toggleMotion(){
+    var on = document.body.getAttribute('data-motion') !== 'off';
+    document.body.setAttribute('data-motion', on ? 'off' : 'on');
+    toast(on ? '動畫已關閉' : '動畫已開啟');
+  }
+  var btnMotion = $('#btnMotion'), btnMotion2 = $('#btnMotion2'), btnNavMotion = $('#btnMotion');
+  [btnMotion, btnMotion2].forEach(function(b){ if(b) b.addEventListener('click', toggleMotion); });
+
+  var btnCopy = $('#btnCopy');
+  if(btnCopy) btnCopy.addEventListener('click', function(){
+    var txt = 'PlayNitride 錼創 (6854.TWO) · MicroLED × ABC 全解 — Interactive Technote v2026.09\n' +
+              '資料來源：PatSnap Eureka《MicroLED Displays Patent Landscape 2026》(2026/07/09)；\n' +
+              'PRNewswire「PlayNitride × Brillink 戰略合作」(2026/01/12)；\n' +
+              '錼創 2024 年報 / 2025/05/29 法說會簡報；SEMICON Taiwan 2025；USPTO 9,670,592。';
+    var ok = false;
+    if(navigator.clipboard) navigator.clipboard.writeText(txt).then(function(){ toast('引用資訊已複製'); }, function(){ fallback(txt); });
+    else fallback(txt);
+    function fallback(t){ try{ var ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); toast('引用資訊已複製'); }catch(e){ toast('複製失敗'); } }
+  });
+
+  // ---- Toast ----
+  var toastEl = $('#toast');
+  var toastTimer = null;
+  function toast(msg){
+    if(!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('on'); }, 1800);
+  }
+
+  // ---- Keyboard shortcuts ----
+  document.addEventListener('keydown', function(e){
+    if(e.target.tagName==='INPUT' || e.target.tagName==='TEXTAREA') return;
+    var k = e.key;
+    if(k>='1' && k<='7'){ jump('sec'+k); e.preventDefault(); return; }
+    if(k==='a' || k==='A'){ $('#nav .fchip[data-p="A"]').click(); return; }
+    if(k==='b' || k==='B'){ $('#nav .fchip[data-p="B"]').click(); return; }
+    if(k==='c' || k==='C'){ $('#nav .fchip[data-p="C"]').click(); return; }
+    if(k==='0'){ $('#nav .fchip[data-p="all"]').click(); return; }
+    if(k==='t' || k==='T'){ window.scrollTo({top:0,behavior:'smooth'}); return; }
+    if(k==='m' || k==='M'){ toggleMotion(); return; }
+  });
+
+  // ---- Hover info panel: §02 SVG ⇄ §04 table cross-link ----
+  var ni = document.getElementById('nodeinfo');
+  function showNode(nodeId){
+    var n = NODES[nodeId];
+    if(!n || !ni) return;
+    ni.setAttribute('data-c', n.c);
+    ni.innerHTML =
+      '<div class="ni-title">'
+      + '<span class="ni-id">'+n.id+'</span>'
+      + '<span>'+n.title+'</span>'
+      + '<span class="ni-tag">'+n.path+' · '+n.layer+'</span>'
+      + '</div>'
+      + '<div>'+n.detail+'</div>'
+      + '<div class="ni-feat"><b>對手/對照：</b> '+n.vs+'</div>'
+      + '<div class="ni-feat"><b>關鍵證據：</b> '+n.feat+'</div>';
+  }
+  function clearNode(){
+    if(!ni) return;
+    ni.removeAttribute('data-c');
+    ni.innerHTML = '<div class="ni-empty">滑過或點擊上方任一個<b>節點方塊</b>（也可以滑 §04 對照表的任一列），這裡會顯示該製程節點的技術細節與競爭對照。</div>';
+  }
+  // SVG rect hover
+  $$('.dual-map rect[data-node]').forEach(function(r){
+    r.addEventListener('mouseenter', function(){ showNode(r.getAttribute('data-node')); });
+    r.addEventListener('mouseleave', clearNode);
+    r.addEventListener('click', function(){
+      showNode(r.getAttribute('data-node'));
+      var tr = document.querySelector('.nodes tr[data-node="'+r.getAttribute('data-node')+'"]');
+      if(tr) tr.scrollIntoView({behavior:'smooth', block:'center'});
+    });
+  });
+  // Table row hover & click highlight
+  $$('.nodes tbody tr').forEach(function(tr){
+    tr.addEventListener('mouseenter', function(){
+      var n = tr.getAttribute('data-node'); if(!n) return;
+      showNode(n);
+      $$('.nodes tr.hi').forEach(function(x){x.classList.remove('hi');});
+      tr.classList.add('hi');
+    });
+    tr.addEventListener('mouseleave', function(){
+      clearNode();
+      tr.classList.remove('hi');
+    });
+    tr.addEventListener('click', function(){
+      var n = tr.getAttribute('data-node'); if(!n) return;
+      showNode(n);
+      $$('.nodes tr.hi').forEach(function(x){x.classList.remove('hi');});
+      tr.classList.add('hi');
+      var svgRect = document.querySelector('.dual-map rect[data-node="'+n+'"]');
+      if(svgRect){
+        document.getElementById('sec2').scrollIntoView({behavior:'smooth', block:'start'});
+        setTimeout(function(){
+          svgRect.style.transition='stroke-width .25s,filter .25s';
+          svgRect.style.strokeWidth='3';
+          svgRect.style.filter='drop-shadow(0 0 12px currentColor)';
+          setTimeout(function(){ svgRect.style.strokeWidth=''; svgRect.style.filter=''; }, 1200);
+        }, 600);
+      }
+    });
+  });
+
+  // ---- Patent table: sort + pin highlight ----
+  var patTable = document.querySelector('.pat-table') || $('table.nodes-patent') || (function(){
+    // find the first table whose header row has 「專利家族」 text
+    var ts = $$('table'); for(var i=0;i<ts.length;i++){ if(/專利家族|專利/.test(ts[i].textContent)) return ts[i]; } return null;
+  })();
+  if(patTable){
+    var ths = $$('thead th', patTable);
+    var tbody = $('tbody', patTable);
+    ths.forEach(function(th, idx){
+      th.style.cursor='pointer';
+      th.title='點擊排序';
+      th.addEventListener('click', function(){
+        var dir = th.getAttribute('data-dir') === 'asc' ? 'desc' : 'asc';
+        ths.forEach(function(x){x.removeAttribute('data-dir');});
+        th.setAttribute('data-dir', dir);
+        var rows = $$('tr', tbody).filter(function(r){return r.parentNode===tbody;});
+        rows.sort(function(a,b){
+          var ca = (a.children[idx]||{}).textContent || '';
+          var cb = (b.children[idx]||{}).textContent || '';
+          var na = parseFloat(ca.replace(/[^\d.\-]/g,''));
+          var nb = parseFloat(cb.replace(/[^\d.\-]/g,''));
+          var va = isNaN(na) ? ca : na;
+          var vb = isNaN(nb) ? cb : nb;
+          if(va < vb) return dir==='asc' ? -1 : 1;
+          if(va > vb) return dir==='asc' ? 1 : -1;
+          return 0;
+        });
+        rows.forEach(function(r){ tbody.appendChild(r); });
+      });
+    });
+  }
+
+  // ---- Pin playnitride row in §01 patent table ----
+  var playRow = document.querySelector('tr[data-page-node-id="pat-tr-06"]');
+  if(playRow){
+    playRow.style.cursor='pointer';
+    playRow.addEventListener('click', function(){
+      $$('.pat-table tr.hi, table tr.hi').forEach(function(x){x.classList.remove('hi');});
+      playRow.classList.add('hi');
+      jump('sec2');
+    });
+  }
+
+  // ---- Default motion state ----
+  document.body.setAttribute('data-motion', 'on');
+
+  // ---- Reveal on scroll ----
+  // mark sections & path cards as rv for fade-up
+  $$('section[id], .path-card, .block, .cpo-hero, .risks .risk, .callout').forEach(function(el){ el.classList.add('rv'); });
+  var rvIO = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rvIO.unobserve(e.target); } });
+  },{threshold:0.12}) : null;
+  if(rvIO){ $$('.rv').forEach(function(el){ rvIO.observe(el); }); }
+  else { $$('.rv').forEach(function(el){ el.classList.add('in'); }); }
+})();
+</script>
 
 </body>
 </html>
