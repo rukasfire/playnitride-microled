@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>錼創 vs 同業 MicroLED 專利對標儀表板</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#f5f7fa;--card:#fff;--ink:#1f2a37;--muted:#6b7280;--line:#e5e9f0;
+    --accent:#2563eb;--accent2:#0e7490;--accent3:#7c3aed;
+    --good:#0f9d58;--warn:#d97706;--bad:#dc2626;
+    --shadow:0 1px 3px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.05);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI","PingFang TC","Microsoft JhengHei",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6;font-size:15px}
+  .wrap{max-width:1100px;margin:0 auto;padding:32px 20px 64px}
+  header.hero{background:linear-gradient(135deg,#1e3a8a,#0e7490);color:#fff;border-radius:18px;padding:34px 32px;box-shadow:var(--shadow)}
+  header.hero h1{margin:0 0 6px;font-size:25px}
+  header.hero .sub{opacity:.92;font-size:14px}
+  header.hero .tags{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:4px 11px;border-radius:999px;font-size:12.5px}
+  h2{font-size:19px;margin:42px 0 6px;padding-left:12px;border-left:4px solid var(--accent3)}
+  h2 .en{color:var(--muted);font-size:13px;font-weight:400;margin-left:8px}
+  .lead{color:var(--muted);font-size:14px;margin:0 0 16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow);margin:14px 0}
+  .chart-box{position:relative;height:380px}
+  .chart-box.tall{height:440px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .note{font-size:12.5px;color:var(--muted);background:#f0f4ff;border:1px solid #dbe6ff;border-radius:10px;padding:12px 14px;margin-top:12px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#f8fafc;color:var(--muted);font-weight:600;position:sticky;top:0}
+  tr:hover td{background:#fafbff}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:600}
+  .pill.g{background:#e7f7ee;color:var(--good)}
+  .pill.w{background:#fdf0dc;color:var(--warn)}
+  .pill.b{background:#fdeaea;color:var(--bad)}
+  .pill.n{background:#eef2ff;color:var(--accent)}
+  .pill.p{background:#f3e8ff;color:var(--accent3)}
+  .anchor{background:#fff7ed}
+  .anchor td{font-weight:600}
+  footer{margin-top:46px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:18px}
+  footer b{color:var(--ink)}
+  .src{font-size:11.5px;color:#9aa3b2;margin-top:6px}
+  @media(max-width:780px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>錼創 (PlayNitride) vs 同業 · MicroLED 專利對標儀表板</h1>
+  <div class="sub">以「商業化訊號」為核心的多公司專利強度比較 · 數據截至 2025 年底 / 2026-09 整理</div>
+  <div class="tags">
+    <span class="tag">錼創 6854.TWO 為錨點</span>
+    <span class="tag">對標 8 家 MicroLED 廠商</span>
+    <span class="tag">量 + 質 雙維度</span>
+    <span class="tag">來源 PatSnap Eureka 2026 / 各公司年報</span>
+  </div>
+</header>
+
+<h2>一、專利規模對標 <span class="en">Portfolio Scale Benchmark</span></h2>
+<p class="lead">依 PatSnap Eureka《MicroLED Displays Patent Landscape 2026》的「MicroLED 顯示專利家族數」，面板巨頭（三星顯示、BOE）以逾千家族遙遙領先；錼創以 345 家族居純 MicroLED 專精廠首位，與 JBD、友達同屬「專精中量級」。</p>
+<div class="card">
+  <div class="chart-box tall"><canvas id="scale"></canvas></div>
+  <div class="note">家族數口徑：同一發明跨國同族合併計 1；不含 2024 後公開滯後案件，故實際佈局更高。錼創自陳累計「申請件數」達 984（2025），與此處「家族數 345」不矛盾。<br>＊Mikro Mesa 未進入 Eureka Top-20，其公開資料為 36 件美國核准 + 100+ 件全球申請中（約 2019 年，規模明顯小於前列）。</div>
+</div>
+
+<h2>二、商業化強度雷達 <span class="en">Commercialization Strength Radar</span></h2>
+<p class="lead">六維度評分（0–100，分析師依公開資料給定之相對分級）：專利規模、技術專精度、商業化實證（良率/量產）、地理可執行、授權/聯盟網、成長動能。錼創在「技術專精度」「商業化實證」「授權/聯盟」三軸明顯領先，填補了規模軸的相對劣勢。</p>
+<div class="grid2">
+  <div class="card"><div class="chart-box"><canvas id="radar"></canvas></div></div>
+  <div class="card">
+    <h3 style="margin:0 0 10px;font-size:15px">讀圖重點</h3>
+    <p style="font-size:13px;margin:0 0 8px"><b>錼創 (紫)</b>：專精度與商業化實證拉滿——唯一量產整合 Epi+晶片+巨量轉移，良率 99.999%，且與三星/友達/富採/光寶股權綁定形成交叉授權網。</p>
+    <p style="font-size:13px;margin:0 0 8px"><b>三星顯示 (藍)</b>：規模與地理雙滿，但技術廣譜（OLED+MicroLED），純 MicroLED 專精度被稀釋。</p>
+    <p style="font-size:13px;margin:0 0 8px"><b>BOE (青)</b>：規模特高、華燦補強晶片，但商業化實證與聯盟網略弱於台廠聯盟。</p>
+    <p style="font-size:13px;margin:0"><b>友達 (綠)</b>：聯盟網最強（本身就是錼創股東/夥伴、再搭 Aledia），總專利池 33,000 件為後盾。</p>
+    <p style="font-size:13px;margin:8px 0 0"><b>JBD (橙)</b>：微顯示專精度滿分，走「混合集成」繞開巨量轉移，AR 眼鏡主力供應鏈。</p>
+  </div>
+</div>
+
+<h2>三、技術路線分化 <span class="en">Technology Route Differentiation</span></h2>
+<div class="card">
+  <table>
+    <tr><th>公司</th><th>核心技術路線</th><th>是否依賴巨量轉移</th><th>主攻應用</th></tr>
+    <tr class="anchor"><td>錼創 PlayNitride</td><td>Epi + 微晶片 + 印章式巨量轉移 + SMAR.Tech 修復（全整合）</td><td>是（自有，良率 99.999%）</td><td>TV/穿戴/車載/透明/AR/光互連</td></tr>
+    <tr><td>三星顯示 Samsung Display</td><td>雙平台 OLED + MicroLED；系統級半導體器件</td><td>是</td><td>The Wall 模組電視、商顯</td></tr>
+    <tr><td>BOE 京東方</td><td>發射級 + 組裝級全佈局；華燦晶片補強</td><td>是</td><td>大尺寸商顯、玻璃基封裝/CPO</td></tr>
+    <tr><td>LG Display</td><td>OLED/MicroLED 雙線</td><td>是</td><td>電視、商顯</td></tr>
+    <tr><td>友達 AUO</td><td>LTPS 背板高速巨量轉移 + 透明/車載 + 玻璃核心基板(CPO)</td><td>是（與錼創協同）</td><td>車載、拼接大尺寸、CPO 光通訊</td></tr>
+    <tr><td>群創 Innolux</td><td>MicroLED 顯示</td><td>是</td><td>商顯、特殊顯示</td></tr>
+    <tr><td>JBD 顯耀</td><td>晶圓級混合集成（Hybrid Integration），非傳統巨量轉移</td><td><b>否</b>（繞開）</td><td>AR/MR 微顯示、HUD</td></tr>
+    <tr><td>Mikro Mesa 微美顯</td><td>低溫免壓巨量轉移 2–5µm、垂直結構</td><td>是（差異化路線）</td><td>穿戴/手機/電視/AR</td></tr>
+    <tr><td>Lumileds</td><td>LED/MicroLED 光源</td><td>—</td><td>車用、微顯示光源</td></tr>
+  </table>
+  <div class="note">關鍵分化：MicroLED 商業化有兩大路線——<b>「巨量轉移派」</b>（錼創、三星、BOE、友達、Mikro Mesa）與<b>「非轉移 / 晶圓級集成派」</b>（JBD 混合集成）。錼創的護城河正在前者中最難的「轉印 + 修復」環節；Mikro Mesa 則以低溫免壓轉移在轉移派內另闢差異。</div>
+</div>
+
+<h2>四、同業對標總表 <span class="en">Master Comparison</span></h2>
+<div class="card" style="overflow-x:auto">
+  <table>
+    <tr><th>公司</th><th>MicroLED<br>家族*</th><th>定位</th><th>地理佈局</th><th>商業化 / 授權態勢</th><th>備註</th></tr>
+    <tr class="anchor"><td>錼創<br>PlayNitride</td><td><b>345</b></td><td>MicroLED 純粹專精</td><td>TW / US / CN / JP + 子公司</td><td>COC + Turn-key + 設備銷售 + 授權；聯盟交叉授權</td><td>良率 99.999%；Yole 2024 第一梯隊；40+ 商標</td></tr>
+    <tr><td>三星顯示<br>Samsung Display</td><td>1,331</td><td>面板巨頭 + 品牌</td><td>全球</td><td>The Wall 量產；垂直整合出海口</td><td>專利量第一；亦為錼創大股東</td></tr>
+    <tr><td>BOE 京東方</td><td>1,208</td><td>面板巨頭</td><td>全球（含中國）</td><td>送樣/驗證；玻璃基封裝、CPO</td><td>華燦光電補強晶片環節</td></tr>
+    <tr><td>LG Display</td><td>520</td><td>面板巨頭</td><td>全球</td><td>電視/商顯量產</td><td>OLED+MicroLED 雙線</td></tr>
+    <tr><td>群創<br>Innolux</td><td>474</td><td>面板廠</td><td>全球</td><td>量產佈局</td><td>—</td></tr>
+    <tr><td>Lumileds</td><td>351</td><td>LED / 微顯供應</td><td>全球</td><td>供應鏈出貨</td><td>—</td></tr>
+    <tr><td>友達<br>AUO</td><td>212<br><span class="src">(總 33,000)</span></td><td>面板廠 + 錼創夥伴</td><td>全球</td><td>與錼創合作；Aledia；交叉授權</td><td>MicroLED 佔綠色專利 86%(2025)；CPO 光通訊</td></tr>
+    <tr><td>JBD 顯耀</td><td>216<br><span class="src">(130 申請)</span></td><td>微顯示專精</td><td>CN + 海外</td><td>微顯示量產；全球自由銷售</td><td>混合集成繞開巨量轉移；AR 主力供應</td></tr>
+    <tr><td>Mikro Mesa<br>微美顯</td><td>小<br><span class="src">(36 美授+100+)</span></td><td>轉移專精</td><td>TW / CN / US</td><td>技術授權 / 合作（中電熊貓）</td><td>低溫免壓轉移 2–5µm</td></tr>
+  </table>
+  <div class="src">＊MicroLED 顯示專利家族數，來源 PatSnap Eureka 2026；其餘數據來自各公司年報與公開報導。Mikro Mesa 家族數未入榜，以公開核准/申請數表示。</div>
+</div>
+
+<h2>五、錼創的相對位置與策略含義 <span class="en">Strategic Read</span></h2>
+<div class="card">
+  <p style="margin-top:0"><b>1. 規模非王，專精度为王。</b>錼創家族數僅三星顯示的約 1/4、BOE 的約 1/3，但在 MicroLED「純粹專精」分類中居首。其價值不在專利數量，而在 <b>巨量轉移 + 修復</b> 這一產業瓶頸環節的獨佔性，以及 Epi+晶片+轉移 的唯一量產整合。</p>
+  <p><b>2. 聯盟即護城河。</b>三星（終端+股東）、友達（夥伴+股東）、富採、光寶的股權綁定，使競爭轉為「交叉授權」而非「訴訟互砍」——這正是其商業化訊號中「低訴訟風險」的根因，也是對標巨頭時最被低估的優勢。</p>
+  <p><b>3. 路線分歧是機會也是威脅。</b>JBD 以「混合集成」繞開巨量轉移、搶 AR 微顯示；Mikro Mesa 以低溫免壓轉移在轉移派內另闢差異。錼創須在守穩轉移霸主地位的同時，加快單片全彩微顯示（0.13/0.18 吋）與光互連/CPO 的佈局，避免被「非轉移路線」側翼包抄。</p>
+  <p style="margin-bottom:0"><b>4. 變現窗口。</b>專利強度已具備，但 2025 營收轉虧提醒：強度需轉化為放量營收（法人看 2027–2028）。昆山代工授權、Lumiode(AR)、Brillink(光互連) 是三大出海口，也是專利「收稅」化的關鍵路徑。</p>
+</div>
+
+<footer>
+  <b>資料來源：</b>PatSnap Eureka《MicroLED Displays Patent Landscape 2026》、各公司年報與官網智財管理頁（錼創 2023/2024 年報、友達 IP 管理頁、JBD/AUO/Mikro Mesa 公開報導）、TrendForce、Yole、LEDinside、MicroLED-Info、鉅亨網等。雷達圖評分為分析師依公開資料給定之相對分級，非官方指標。
+  <div class="src">免責聲明：本儀表板由公開資訊彙整，僅供研究參考，非投資建議亦非法律意見；專利數據因資料庫滯後與口徑差異可能與官方登記略有出入，最終權利狀態以各國專利主管機關公告為準。整理日期：2026-09-11。</div>
+</footer>
+
+</div>
+
+<script>
+const C={ink:'#1f2a37',muted:'#6b7280',line:'#e5e9f0'};
+Chart.defaults.color=C.muted;Chart.defaults.font.family='-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif';
+Chart.defaults.font.size=12;
+
+// 1. Scale bar
+new Chart(document.getElementById('scale'),{
+  type:'bar',
+  data:{labels:['Samsung Display','BOE 京東方','LG Display','Innolux 群創','Lumileds','PlayNitride 錼創','JBD 顯耀','AUO 友達','Mikro Mesa*'],
+    datasets:[{label:'MicroLED 顯示專利家族數',
+      data:[1331,1208,520,474,351,345,216,212,null],
+      backgroundColor:Array(9).fill('rgba(37,99,235,.78)'),borderRadius:4}]},
+  options:{maintainAspectRatio:false,indexAxis:'y',
+    plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>c.parsed.x==null?' 規模較小(未入榜)':(' '+c.parsed.x+' 個家族')}}},
+    scales:{x:{title:{display:true,text:'專利家族數'},grid:{color:C.line},beginAtZero:true},
+      y:{grid:{display:false}}}}
+});
+const sc=Chart.getChart('scale');
+sc.data.datasets[0].backgroundColor[5]='rgba(124,58,237,.92)';
+sc.update();
+
+// 2. Radar
+new Chart(document.getElementById('radar'),{
+  type:'radar',
+  data:{labels:['專利規模','技術專精度','商業化實證','地理可執行','授權/聯盟','成長動能'],
+    datasets:[
+      {label:'錼創 PlayNitride',data:[45,100,100,80,100,80],borderColor:'#7c3aed',backgroundColor:'rgba(124,58,237,.18)',borderWidth:2,pointBackgroundColor:'#7c3aed'},
+      {label:'三星顯示 Samsung',data:[100,60,100,100,80,80],borderColor:'#2563eb',backgroundColor:'rgba(37,99,235,.12)',borderWidth:2,pointBackgroundColor:'#2563eb'},
+      {label:'BOE 京東方',data:[95,60,80,100,60,80],borderColor:'#0e7490',backgroundColor:'rgba(14,116,144,.12)',borderWidth:2,pointBackgroundColor:'#0e7490'},
+      {label:'友達 AUO',data:[38,60,80,100,100,80],borderColor:'#0f9d58',backgroundColor:'rgba(15,157,88,.12)',borderWidth:2,pointBackgroundColor:'#0f9d58'},
+      {label:'JBD 顯耀',data:[40,100,80,60,60,80],borderColor:'#d97706',backgroundColor:'rgba(217,119,6,.12)',borderWidth:2,pointBackgroundColor:'#d97706'}
+    ]},
+  options:{maintainAspectRatio:false,
+    plugins:{legend:{position:'top'}},
+    scales:{r:{min:0,max:100,grid:{color:C.line},angleLines:{color:C.line},
+      pointLabels:{font:{size:12.5},color:C.ink},
+      ticks:{display:false,stepSize:20}}}}
+});
+</script>
+</body>
+</html>
