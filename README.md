@@ -7,8 +7,12 @@
 
 | 檔案 | 說明 |
 | --- | --- |
+| [`research-notes.html`](./research-notes.html) | **團隊研究筆記首頁**：閱讀地圖、事實／推論邊界、待查問題、可本機保存的筆記欄位 |
+| [`RESEARCH_NOTES.md`](./RESEARCH_NOTES.md) | **可協作 Markdown 筆記包**：摘要、研究框架、交接問題與會議模板 |
 | [`index.html`](./index.html) | **互動式研究筆記（GitHub Pages 首頁）**：明亮 editorial theme、12 個製程節點 × 3 條技術路徑、互動專利透鏡、SVG 結構圖與時程圖 |
 | [`stock-analysis.html`](./stock-analysis.html) | **股市分析分頁**：基本面儀表板、三情境估值沙盒、催化劑、假設失效點與部位管理計算器 |
+| [`playnitride_patent_report.html`](./playnitride_patent_report.html) | **完整專利分析報告**：專利組合、分類與商業化解讀 |
+| [`playnitride_peer_benchmark.html`](./playnitride_peer_benchmark.html) | **同業專利對標儀表板**：主要競爭者的專利規模與動能比較 |
 | [`playnitride_patent_analysis.md`](./playnitride_patent_analysis.md) | 專利強度分析報告：錼創 vs Samsung Display / LG Display / BOE / AUO / 群創，含商業化訊號、訴訟風險、地理覆蓋評比 |
 
 ## 重點點點 (TL;DR)
